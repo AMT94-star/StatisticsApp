@@ -56,7 +56,7 @@ public class UsernameSetupView {
         StackPane pokeball = buildPokeball();
 
         // ---- Hälsning ----
-        Label greeting = new Label("Hi my love :)");
+        Label greeting = new Label("Welcome!");
         greeting.setStyle(
                 "-fx-font-size: 16px;" +
                         "-fx-text-fill: #6b7280;" +
