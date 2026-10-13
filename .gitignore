@@ -36,3 +36,26 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Maven
+target/
+
+# Windows-paketering
+dist/
+dist-clean/
+installer/
+jpackage-temp/
+
+# Databasfiler
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# IntelliJ
+.idea/
+*.iml
+
+# Operativsystem
+.DS_Store
+Thumbs.db

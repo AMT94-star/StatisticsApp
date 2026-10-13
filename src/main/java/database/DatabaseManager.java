@@ -1,15 +1,34 @@
 package database;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.io.IOException;
 
 public class DatabaseManager {
 
-    private static final String URL = "jdbc:sqlite:pokemon_stats.db";
+    private static final Path DB_FOLDER = Path.of(
+            System.getenv("LOCALAPPDATA") != null
+                    ? System.getenv("LOCALAPPDATA")
+                    : System.getProperty("user.home"),
+            "StatisticsApp"
+    );
+
+    private static final Path DB_PATH =
+            DB_FOLDER.resolve("pokemon_stats.db");
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL);
+        try {
+            Files.createDirectories(DB_FOLDER);
+        } catch (IOException e) {
+            throw new SQLException("Could not create database folder", e);
+        }
+
+        return DriverManager.getConnection(
+                "jdbc:sqlite:" + DB_PATH.toAbsolutePath()
+        );
     }
 
     public static void initializeDatabase() {
@@ -39,7 +58,6 @@ public class DatabaseManager {
 
             stmt.execute(createTable);
 
-            // normalisera day kolumnen
             stmt.execute("""
                     UPDATE entries
                     SET day = upper(substr(day,1,1)) || lower(substr(day,2))

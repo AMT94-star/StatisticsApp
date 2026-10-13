@@ -15,6 +15,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) {
+        System.out.println("Working directory: " + System.getProperty("user.dir"));
 
         DatabaseManager.initializeDatabase();
 
